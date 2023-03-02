@@ -5,23 +5,63 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1> SERVICE BUS DEMO </h1>
+<div class="container">
+    <h1 class="text-center mt-5">SERVICE BUS DEMO</h1>
 
-<h4> This demo is built for testing message queues in Azure Service Bus</h4>
+    <div class="card mt-5">
+        <div class="card-body">
+            <h6 class="card-title">This demo is built for testing message queues in Azure Service Bus</h6>
 
-<EditForm Model="@person" OnInvalidSubmit="@Publishmessage">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-    <div class="form-group">
-        <label for="firstName"> First Name </label>
-        <InputText id="firstName" class="from-control" @bind-Value="person.FirstName" />
-    </div> 
-    <div class="form-group">
-        <label for="lastName"> Last Name </label>
-        <InputText id="lastName" class="from-control" @bind-Value="person.LastName" />
+            <EditForm Model="@person" OnInvalidSubmit="@Publishmessage">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <InputText id="firstName" class="form-control" @bind-Value="person.FirstName" />
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <InputText id="lastName" class="form-control" @bind-Value="person.LastName" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </EditForm>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</EditForm>
+</div>
+
+<style>
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .card {
+        border: none;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+        .btn-primary:hover {
+            background-color: #0069d9;
+            border-color: #0062cc;
+        }
+</style>
 
 @code{
     private PersonModel person = new PersonModel();
@@ -31,7 +71,6 @@
         // When you publish a message it will be sent to the que and then clear the person (new PersonModel)
         // so we can start over with a new person
         await queue.SendMessageAsync(person, "personqueue");
-        person = new PersonModel(); 
+        person = new PersonModel();
     }
 }
-
